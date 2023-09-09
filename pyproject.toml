@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "search-engine-optimization"
+version = "0.1.0"
+description = ""
+authors = ["eomac <104458004+ErikaMelt@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pandas = "^2.1.0"
+sqlalchemy = "^2.0.20"
+pydantic = "^2.3.0"
+pyodbc = "^4.0.39"
+beautifulsoup4 = "^4.9"
+python-dotenv = "^1.0" 
+requests = "^2.31.0"
+mysql-connector-python = "^8.1.0"
+
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.25.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
