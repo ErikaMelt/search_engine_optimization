@@ -1,15 +1,16 @@
-from database.models.search_result import SearchResult
+from database.models.models import SearchResult
 from sqlalchemy.orm import sessionmaker
-from database.models.connect_db import create_db_engine  
+from database.models.connect_db import create_db_engine
 
-def add_search_results(search_results):
+
+def add(search_results):
     """
     Add multiple search_results to the database in a single session.
 
     Args:
         search_results: List of SearchResult instances to add.
     """
-    engine = create_db_engine()  
+    engine = create_db_engine()
     Session = sessionmaker(bind=engine)
 
     try:
@@ -22,7 +23,8 @@ def add_search_results(search_results):
     finally:
         session.close()
 
-def edit_search_result(search_result_id, new_data):
+
+def edit(search_result_id, new_data):
     """
     Edit a search_result by ID with new data.
 
@@ -30,7 +32,7 @@ def edit_search_result(search_result_id, new_data):
         search_result_id: ID of the search_result to edit.
         new_data: Dictionary containing new data.
     """
-    engine = create_db_engine()  
+    engine = create_db_engine()
     Session = sessionmaker(bind=engine)
 
     try:
@@ -46,14 +48,15 @@ def edit_search_result(search_result_id, new_data):
     finally:
         session.close()
 
-def delete_search_result(search_result_id):
+
+def delete(search_result_id):
     """
     Delete a search_result by ID.
 
     Args:
         search_result_id: ID of the search_result to delete.
     """
-    engine = create_db_engine()  
+    engine = create_db_engine()
     Session = sessionmaker(bind=engine)
 
     try:
@@ -64,28 +67,6 @@ def delete_search_result(search_result_id):
             session.commit()
     except Exception as e:
         session.rollback()
-        raise e
-    finally:
-        session.close()
-
-def get_queries(limit=20):
-    """
-    Get a list of queries from the database with an optional limit.
-
-    Args:
-        limit: Maximum number of queries to retrieve (default is 20).
-
-    Returns:
-        List of SearchResult instances.
-    """
-    engine = create_db_engine()
-    Session = sessionmaker(bind=engine)
-
-    try:
-        session = Session()
-        queries = session.query(SearchResult).order_by(SearchResult.timestamp).limit(limit).all()
-        return queries
-    except Exception as e:
         raise e
     finally:
         session.close()
