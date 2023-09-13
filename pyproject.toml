@@ -16,6 +16,8 @@ requests = "^2.31.0"
 mysql-connector-python = "^8.1.0"
 python-dotenv = "^0.13.0"
 openai = "^0.28.0"
+requests-html = "^0.10.0"
+spacy = "^3.6.1"
 
 [tool.poetry.group.dev.dependencies]
 ipykernel = "^6.25.2"

@@ -1,5 +1,5 @@
 from sqlalchemy.orm import declarative_base
-from sqlalchemy import TIMESTAMP, Column, ForeignKey, Integer, String, DateTime, Text
+from sqlalchemy import TIMESTAMP, Column, ForeignKey, Index, Integer, String, DateTime, Text
 from sqlalchemy.sql import func
 
 
@@ -27,9 +27,25 @@ class SearchResult(Base):
     snippet = Column(Text(collation="utf8mb4_unicode_ci"))
     url = Column(String(length=512))
     position = Column(Integer)
+    search_engine = Column(String(length=8))
     created_at = Column(
         TIMESTAMP(timezone=True), server_default=func.now(), nullable=False
     )
+    query_id_index = Index('query_id_index', QueryIntent.id) 
     query_id = Column(
         Integer, ForeignKey("query_intents.id", ondelete="CASCADE"), nullable=False
     )
+
+    def __init__(self, title: str, snippet: str, url: str, position: int, search_engine: str, query_id: int):
+        self.title = title
+        self.snippet = snippet
+        self.url = url
+        self.position = position
+        self.search_engine = search_engine.lower()
+        self.query_id = query_id
+        
+
+
+  
+
+

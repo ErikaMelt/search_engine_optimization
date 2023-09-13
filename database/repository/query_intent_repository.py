@@ -1,3 +1,4 @@
+import logging
 import pandas as pd
 from database.models.connect_db import create_db_engine
 from database.models.models import QueryIntent
@@ -71,4 +72,4 @@ def add_query_intent_data_from_csv():
 
         add(query_intents)
     except Exception as e:
-        print(f"An error occurred: {str(e)}")
+        logging.error(f"Query intent repository: {e}")

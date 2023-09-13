@@ -24,7 +24,7 @@ def setup_database():
         from sqlalchemy import ForeignKeyConstraint
 
         ForeignKeyConstraint(
-            columns=[SearchResult.__table__.c.query_intent_id],
+            columns=[SearchResult.__table__.c.query_id],
             refcolumns=[QueryIntent.__table__.c.id],
         ).create(engine)
 

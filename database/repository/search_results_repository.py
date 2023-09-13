@@ -1,3 +1,4 @@
+import logging
 from database.models.models import SearchResult
 from sqlalchemy.orm import sessionmaker
 from database.models.connect_db import create_db_engine
@@ -15,7 +16,17 @@ def add(search_results):
 
     try:
         session = Session()
-        session.bulk_save_objects(search_results)
+
+        for result in search_results:
+            existing_record = session.query(SearchResult).filter_by(
+                query_id=result.query_id,
+                url=result.url,
+                search_engine=result.search_engine
+            ).first()
+
+            if not existing_record:
+                session.add(result)
+
         session.commit()
     except Exception as e:
         session.rollback()
@@ -44,7 +55,7 @@ def edit(search_result_id, new_data):
             session.commit()
     except Exception as e:
         session.rollback()
-        raise e
+        logging.error(f"SearchResult repository: {e}")
     finally:
         session.close()
 
