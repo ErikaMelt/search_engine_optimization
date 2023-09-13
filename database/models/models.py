@@ -1,5 +1,5 @@
 from sqlalchemy.orm import declarative_base
-from sqlalchemy import TIMESTAMP, Column, ForeignKey, Index, Integer, String, DateTime, Text
+from sqlalchemy import BINARY, TIMESTAMP, Column, ForeignKey, Index, Integer, String, DateTime, Text
 from sqlalchemy.sql import func
 
 
@@ -13,7 +13,6 @@ class QueryIntent(Base):
     query = Column(String(length=255), nullable=True)
     intent_desc = Column(String(length=512), nullable=True)
     query_date = Column(DateTime(timezone=True), nullable=True)
-    category = Column(String(length=128), nullable=True)
     created_at = Column(
         TIMESTAMP(timezone=True), server_default=func.now(), nullable=False
     )
@@ -25,9 +24,10 @@ class SearchResult(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     title = Column(Text(collation="utf8mb4_unicode_ci"))
     snippet = Column(Text(collation="utf8mb4_unicode_ci"))
-    url = Column(String(length=512))
+    url = Column(String(length=650))
     position = Column(Integer)
     search_engine = Column(String(length=8))
+    scraping_id = Column(String(36, collation="utf8mb4_unicode_ci"))
     created_at = Column(
         TIMESTAMP(timezone=True), server_default=func.now(), nullable=False
     )
@@ -43,6 +43,15 @@ class SearchResult(Base):
         self.position = position
         self.search_engine = search_engine.lower()
         self.query_id = query_id
+
+    def as_dict(self):
+        return {
+            "title": self.title,
+            "url": self.url,
+            "snippet": self.snippet,
+            "query_id": self.query_id,
+            "search_engine": self.search_engine,
+        }
         
 
 

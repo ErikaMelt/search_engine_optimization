@@ -47,11 +47,10 @@ def get_queries(limit=20):
             .limit(limit)
             .all()
         )
-        query_data = [(query, query.id) for query in queries]
-
+        query_data = [{"query": query.query, "query_id": query.id} for query in queries]
         return query_data
     except Exception as e:
-        raise e
+        logging.error(f"Query intent repository: {e}")
     finally:
         session.close()
 
