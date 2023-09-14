@@ -27,7 +27,7 @@ The Search Optimization project is designed to enhance the relevance and clarity
 
 - **Dependencies**: Poetry is used for managing project dependencies, ensuring a clean and reproducible environment.
 
-- **Backend**: The backend of the project is developed in Python, leveraging libraries like SQLAlchemy for database interaction and Spacy for data preprocessing.
+- **Backend**: The backend of the project is developed in Python, leveraging libraries like SQLAlchemy for database interaction and SpaCy for data preprocessing.
 
 ## Installation
 
@@ -36,14 +36,18 @@ The Search Optimization project is designed to enhance the relevance and clarity
    ```bash
    git clone https://github.com/yourusername/search-optimization.git
    cd search-optimization
+   
 2. **Install project dependencies using poetry:**
+```bash
 poetry install
+```
 
 3. **Set up a MySQL database for storing search results and update the database configuration in the project settings.**
 
 4. **Start the FastAPI server:**
-   
+```
 poetry run uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+```
 
 5. Access the FastAPI documentation at http://localhost:8000/docs to explore available API endpoints.
 
