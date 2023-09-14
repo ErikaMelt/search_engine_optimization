@@ -22,7 +22,7 @@ The Search Optimization project is designed to enhance the relevance and clarity
         temperature=0.2,
     )
 ```
-Prompt example: ![image](https://github.com/ErikaMelt/search_engine_optimization/assets/104458004/12ea43c7-6605-4a83-ac05-8d7b0ff7d952)
+Prompt example: ![image](https://github.com/ErikaMelt/search_engine_optimization/assets/104458004/e5b0a5f6-4e34-41bf-b015-68316b2988ec)
 
 - **API**: The project exposes an API using FastAPI, allowing users to interact with the system. Users can submit intents, retrieve search results, and receive optimized results with relevance scores.
 
