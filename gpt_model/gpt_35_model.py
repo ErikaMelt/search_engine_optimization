@@ -1,4 +1,3 @@
-import json
 import os
 from dotenv import load_dotenv
 import openai
@@ -8,42 +7,45 @@ load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 openai.api_key = OPENAI_API_KEY
 
-def generate_evaluation(json_data):
-    data = json.loads(json_data)
 
-    intents = data.get("intents", [])
+def generate_evaluation(evaluation_data_list):
+    # Create a list to store the prompts for each search result
+    prompts = []
 
-    if not intents or len(intents) == 0:
-        return "No search results were found."
+    for evaluation_data in evaluation_data_list:
+        intent_desc = evaluation_data["intent_desc"]
+        title = evaluation_data["title"]
+        url = evaluation_data["url"]
+        snippet = evaluation_data["snippet"]
+        search_engine = evaluation_data["search_engine"]
+        position = evaluation_data["position"]
+        result_id = evaluation_data["id"]
 
-    prompt = "Please evaluate the following search results based on the provided intents:\n\n"
+        # Create a prompt for each search result
+        prompt = f"""
+        Evaluate the following search result for the intent: '{intent_desc}'
+        Title: '{title}'
+        Snippet: '{snippet}'
+        URL: '{url}'
+        Search engine: '{search_engine}'
+        position: '{position}
+        result_id: '{result_id}
+              
+        Provide Relevance score: [1 to 5]
+        Improvement Suggestion: [clear and concise suggestion and whether the title, url or snippet should be changed]
+        Best Search Engine: [Bing, Google]
+        Best Result ID: [result_id]
+        """
+        prompts.append(prompt)
 
-    for intent in intents:
-        intent_name = intent.get("intent", "")
-        results = intent.get("results", [])
+    # Combine all prompts into one
+    combined_prompt = "\n".join(prompts)
 
-        prompt += f"Intent: {intent_name}\n\n"
-
-        for result in results:
-            title = result.get("title", "")
-            snippet = result.get("snippet", "")
-            url = result.get("url", "")
-
-            # Append search result information
-            prompt += f"Title: {title}\n"
-            prompt += f"Snippet: {snippet}\n"
-            prompt += f"URL: {url}\n\n"
-
-            # Request ratings and improvement suggestion
-            prompt += "Relevance: [Your Relevance Score, 1 to 5]\n"
-            prompt += "Clarity: [Your Clarity Score, 1 to 5]\n"
-            prompt += "Improvement Suggestion: [clear and consise suggestion and whether the title should be changed]\n\n"
-       
     response = openai.Completion.create(
-        engine="text-davinci-003", 
-        prompt=prompt, 
-        max_tokens=200,  
-        temperature=0.2
+        engine="text-davinci-003",
+        prompt=combined_prompt,
+        max_tokens=200,
+        temperature=0.2,
     )
 
     evaluation = response.choices[0].text

@@ -1,5 +1,14 @@
 from sqlalchemy.orm import declarative_base
-from sqlalchemy import BINARY, TIMESTAMP, Column, ForeignKey, Index, Integer, String, DateTime, Text
+from sqlalchemy import (
+    TIMESTAMP,
+    Column,
+    ForeignKey,
+    Index,
+    Integer,
+    String,
+    DateTime,
+    Text,
+)
 from sqlalchemy.sql import func
 
 
@@ -31,12 +40,20 @@ class SearchResult(Base):
     created_at = Column(
         TIMESTAMP(timezone=True), server_default=func.now(), nullable=False
     )
-    query_id_index = Index('query_id_index', QueryIntent.id) 
+    query_id_index = Index("query_id_index", QueryIntent.id)
     query_id = Column(
         Integer, ForeignKey("query_intents.id", ondelete="CASCADE"), nullable=False
     )
 
-    def __init__(self, title: str, snippet: str, url: str, position: int, search_engine: str, query_id: int):
+    def __init__(
+        self,
+        title: str,
+        snippet: str,
+        url: str,
+        position: int,
+        search_engine: str,
+        query_id: int,
+    ):
         self.title = title
         self.snippet = snippet
         self.url = url
@@ -52,9 +69,3 @@ class SearchResult(Base):
             "query_id": self.query_id,
             "search_engine": self.search_engine,
         }
-        
-
-
-  
-
-

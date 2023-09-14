@@ -72,3 +72,31 @@ def add_query_intent_data_from_csv():
         add(query_intents)
     except Exception as e:
         logging.error(f"Query intent repository: {e}")
+
+
+def retrieve_query_by_id(query_id):
+    """
+    Retrieve a query intent by its id.
+
+    Args:
+        query_id: query_id to search the query intent
+
+    Returns:
+        QueryIntent: The QueryIntent instance with the given id.
+    """
+    engine = create_db_engine()
+    Session = sessionmaker(bind=engine)
+
+    try:
+        session = Session()
+        result = session.query(QueryIntent).filter_by(id=query_id).one_or_none()
+        query_intent = {
+            "query_id": result.id,
+            "query": result.query,
+            "query_intent": result.intent_desc,
+        }
+        return query_intent
+    except Exception as e:
+        logging.error(f"Retrieve query by id: {e}")
+    finally:
+        session.close()
