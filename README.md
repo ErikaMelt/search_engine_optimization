@@ -21,8 +21,11 @@ The Search Optimization project is designed to enhance the relevance and clarity
         max_tokens=200,
         temperature=0.2,
     )
-```
 
+
+Prompt example: ![image](https://github.com/ErikaMelt/search_engine_optimization/assets/104458004/12ea43c7-6605-4a83-ac05-8d7b0ff7d952)
+
+```
 - **API**: The project exposes an API using FastAPI, allowing users to interact with the system. Users can submit intents, retrieve search results, and receive optimized results with relevance scores.
 
 - **Dependencies**: Poetry is used for managing project dependencies, ensuring a clean and reproducible environment.
@@ -60,5 +63,6 @@ Use the API to submit intents, retrieve search results, and receive optimized re
 ![image](https://github.com/ErikaMelt/search_engine_optimization/assets/104458004/5448b3dc-ea13-42f5-b223-70cd80277531)
 
 ![image](https://github.com/ErikaMelt/search_engine_optimization/assets/104458004/3785ea34-8e97-4ce0-b979-ca031e4a28e9)
+
 
 
