@@ -14,6 +14,15 @@ The Search Optimization project is designed to enhance the relevance and clarity
 
 - **GPT-3.5 Davinci Model**: The OpenAI GPT-3.5 Davinci model is used via the OpenAI API. It analyzes search results for each intent, assigning relevance scores (1-5), suggesting improvements, and identifying the best search engine (Google or Bing) for that intent.
 
+```bash
+    response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=prompt,
+        max_tokens=200,
+        temperature=0.2,
+    )
+```
+
 - **API**: The project exposes an API using FastAPI, allowing users to interact with the system. Users can submit intents, retrieve search results, and receive optimized results with relevance scores.
 
 - **Dependencies**: Poetry is used for managing project dependencies, ensuring a clean and reproducible environment.
