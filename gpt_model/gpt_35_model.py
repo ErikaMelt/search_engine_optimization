@@ -9,7 +9,6 @@ openai.api_key = OPENAI_API_KEY
 
 
 def generate_evaluation(evaluation_data_list):
-    # Create a list to store the prompts for each search result
     prompts = []
 
     for evaluation_data in evaluation_data_list:
@@ -24,22 +23,22 @@ def generate_evaluation(evaluation_data_list):
         # Create a prompt for each search result
         prompt = f"""
         Evaluate the following search result for the intent: '{intent_desc}'
-        Title: '{title}'
-        Snippet: '{snippet}'
-        URL: '{url}'
-        Search engine: '{search_engine}'
-        position: '{position}
-        result_id: '{result_id}
+        **Title:** '{title}'
+        **Snippet:** '{snippet}'
+        **URL:** '{url}'
+        **Search Engine:** '{search_engine}'
+        **Position:** '{position}'
+        **Result ID:** '{result_id}'
               
-        Provide Relevance score: [1 to 5]
-        Improvement Suggestion: [clear and concise suggestion and whether the title, url or snippet should be changed]
-        Best Search Engine: [Bing, Google]
-        Best Result ID: [result_id]
+        Please provide a Relevance score between 1 (not relevant) and 5 (highly relevant) based on the given information.
+        If you have any suggestions for improvement, please be clear and concise. Mention whether the title, URL, or snippet should be changed.
+        Finally, select the Best Search Engine for this intent: [Bing, Google] and specify the Best Result ID from the provided options.
         """
         prompts.append(prompt)
 
-    # Combine all prompts into one
     combined_prompt = "\n".join(prompts)
+
+    print(combined_prompt)
 
     response = openai.Completion.create(
         engine="text-davinci-003",
@@ -49,5 +48,4 @@ def generate_evaluation(evaluation_data_list):
     )
 
     evaluation = response.choices[0].text
-
     return evaluation

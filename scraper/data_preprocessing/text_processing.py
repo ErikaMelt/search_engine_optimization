@@ -19,7 +19,6 @@ def clean_text(search_results):
         title_doc = nlp(title)
         snippet_doc = nlp(snippet)
 
-        # Lemmatize and remove stop words from title and snippet
         cleaned_title = " ".join(
             [token.lemma_ for token in title_doc if not token.is_stop]
         )
