@@ -40,7 +40,7 @@ Prompt example: ![image](https://github.com/ErikaMelt/search_engine_optimization
    
 2. **Install project dependencies using poetry:**
 ```bash
-poetry install
+poetry add
 ```
 
 3. **Set up a MySQL database for storing search results and update the database configuration in the project settings.**
